@@ -125,9 +125,8 @@ def scene_gulf(d, x, y, w, h):
                (x + 70, y + h - 16), (x + 16, y + h - 16)], fill=(139, 0, 0))
     d.rectangle([x + 18, y + h - 38, x + 34, y + h - 26], fill=(200, 200, 200))
     d.rectangle([x + 40, y + h - 34, x + 68, y + h - 26], fill=(29, 78, 216))
-    # oil barrel with $ — the market figure, not the claim
-    d.ellipse([x + w - 78, y + h - 34, x + w - 52, y + h - 16], fill=(20, 20, 20))
-    d.text((x + w - 74, y + h - 30), "$", font=font(11, bold=True), fill=(255, 255, 255))
+    # no $ roundel here: the barrel mark read as an abstract price icon,
+    # and the market figure already lives in the card's label bar.
 
 
 def scene_cairo(d, x, y, w, h):
@@ -328,75 +327,86 @@ def blit_scene(img, name, x, y, w, h):
 # ---------------------------------------------------------------- data
 MAIN_PANELS = [
     dict(num=1, label="14 NATIONS · UP TO 25%", scene="tariff", badge="OFFICIAL",
-         source="USTR · REUTERS",
+         source="USTR · REUTERS", region="N. AMERICA",
          headline="US PROPOSES NEW TARIFFS ON 14 PARTNERS",
-         sub="India faces 25% — 17% if a trade deal is struck."),
-    dict(num=2, label="BRENT $94.71 · 01:37 UTC", scene="gulf", badge="CLAIM",
-         source="REUTERS · ARAB NEWS",
+         sub="India faces 25%, 17% with a deal. Greer 26 Nov: months away."),
+    dict(num=2, label="BRENT $94.71 · 01:37 UTC · MARKET", scene="gulf", badge="CLAIM",
+         source="REUTERS · ARAB NEWS", region="MIDDLE EAST",
          headline="HOUTHI, IRAN CLAIMS RATTLE GULF OIL",
          sub="Houthis claim Ras Tanura hit; Iran claims mines."),
     dict(num=3, label="31 DEAD · 21 INJURED", scene="cairo", badge="OFFICIAL",
-         source="EGYPT HEALTH MINISTRY · CNN",
+         source="EGYPT HEALTH MINISTRY · CNN", region="AFRICA",
          headline="CAIRO TANKER FIRE KILLS 31, INJURES 21",
          sub="Toll confirmed 26 Nov after Wednesday night fire."),
 ]
 
 FEATURES = [
     dict(num=4, label="€1.58T", scene="eu", badge="REPORTED", source="Reuters",
+         region="EUROPE",
          headline="EU DEBATES €1.58 TRILLION BUDGET",
          sentence="Leaders meet in Brussels; deal sought in Dec."),
-    dict(num=5, label="£2,166 / YR", scene="uk", badge="REPORTED", source="BBC",
+    dict(num=5, label="£2,166 / YR", scene="uk", badge="CONFIRMED", source="BBC · The Times",
+         region="EUROPE",
          headline="UK ENERGY BILLS TO JUMP 26% IN JAN",
          sentence="Typical household to pay £2,166 a year."),
-    dict(num=6, label="15,000 MARCH", scene="greece", badge="REPORTED", source="Euronews",
+    dict(num=6, label="15,000 MARCH", scene="greece", badge="CONFIRMED",
+         source="Euronews · Reuters", region="EUROPE",
          headline="GREECE STRIKES, ATHENS MARCHES",
          sentence="About 15,000 march in a general strike."),
-    dict(num=7, label="1,990 IN A DAY", scene="canary", badge="REPORTED", source="Africanews",
+    dict(num=7, label="1,990 IN A DAY", scene="canary", badge="CONFIRMED",
+         source="Africanews · AP", region="EUROPE",
          headline="1,990 MIGRANTS REACH CANARY ISLANDS",
          sentence="Fifteen boats arrive in a single day."),
     dict(num=8, label="$227M · 1.5 T", scene="nigeria", badge="OFFICIAL", source="NDLEA",
+         region="AFRICA",
          headline="NIGERIA BUSTS $227M METH LAB",
          sentence="Agents seize 1.5 tonnes of meth."),
     dict(num=9, label="TIANGONG", scene="space", badge="REPORTED", source="Guardian",
+         region="S. ASIA",
          headline="FIRST PAKISTANI ASTRONAUT ABOARD TIANGONG",
          sentence="First foreign visitor aboard; stays about a week."),
-    dict(num=10, label="3.25%", scene="korea", badge="OFFICIAL", source="Bank of Korea",
+    dict(num=10, label="3.25%", scene="korea", badge="OFFICIAL",
+         source="BOK · Nikkei Asia", region="E. ASIA",
          headline="BANK OF KOREA LIFTS RATE TO 3.25%",
          sentence="Rate up 25 bps; 2027 growth seen at 4.1%."),
-    dict(num=11, label="PARADE DELAYED", scene="storm", badge="REPORTED", source="BBC",
+    dict(num=11, label="PARADE DELAYED", scene="storm", badge="CONFIRMED",
+         source="BBC · AP", region="N. AMERICA",
          headline="STORM DELAYS 100TH MACY'S PARADE",
          sentence="Parade moves to Sat 28 Nov; 6,000+ flights delayed."),
-    dict(num=12, label="76 FREED", scene="colombia", badge="REPORTED", source="BBC",
-         headline="COLOMBIA FREES 76 HOSTAGES",
-         sentence="Police end 17-hour siege; total put at 76 on 26 Nov."),
+    dict(num=12, label="76 FREED", scene="colombia", badge="CONFIRMED",
+         source="BBC · AFP", region="S. AMERICA",
+         headline="CARTAGENA HOSTAGE COUNT PUT AT 76",
+         sentence="Siege 24 Nov; rescue early 25 Nov; 76 confirmed 26 Nov."),
     dict(num=13, label="1M SATELLITES", scene="fcc", badge="OFFICIAL", source="FCC · CNBC",
+         region="N. AMERICA",
          headline="FCC CLEARS 1 MILLION SPACEX SATELLITES",
          sentence="First US approval for orbital data centres."),
 ]
 
 # 21 one-line items (3 big + 10 features + 21 = 34 stories).
+# 4th field is the region, used to count STORIES BY REGION automatically.
 ALSO = [
-    ("Poland plans no-fly zone at Ukraine border", "Reuters", "REPORTED"),
-    ("UniCredit takes control of Commerzbank", "Reuters", "REPORTED"),
-    ("34 nations urge Russia to halt chemical weapons", "OPCW", "OFFICIAL"),
-    ("US urges citizens to leave Iran", "Euronews", "REPORTED"),
-    ("Israeli strike kills Hamas official; 11 dead in Gaza", "BBC", "REPORTED"),
-    ("Iraqi court seizes Kurdistan oil", "Al Jazeera", "REPORTED"),
-    ("S. Africa voids Phala Phala report, $580k", "France 24", "REPORTED"),
-    ("Drone attack kills 15 in Sudan", "AllAfrica", "REPORTED"),
-    ("Bangladesh raises garment pay to 17,000 taka", "AFP", "REPORTED"),
-    ("Nepal: 213 Indians presumed dead in floods", "The Hindu", "REPORTED"),
-    ("Kim Jong Un urges tactical nuclear push", "KCNA via Reuters", "OFFICIAL"),
-    ("N. Korea expels Swiss diplomat in 48 hours", "KCNA via Reuters", "OFFICIAL"),
-    ("USTR's Greer: new tariffs months away", "IANS", "REPORTED"),
-    ("Java gold-mine flood kills at least 13", "ANSA", "REPORTED"),
-    ("FedEx jet slips off Miami runway; no injuries", "FAA", "OFFICIAL"),
-    ("US core inflation 3.3%; Dec 9 Fed hike odds ~99%", "CME FedWatch", "REPORTED"),
-    ("Abrego Garcia in Spain after 20-month fight", "Euronews", "REPORTED"),
-    ("Brazil recalls ambassador from Argentina", "MercoPress", "REPORTED"),
-    ("Puerto Rico court voids Luma deal 5-4", "GlobeTV", "REPORTED"),
-    ("Earth above 2°C for 6 days; record 2.24°C", "Copernicus", "REPORTED"),
-    ("Hera snaps giant crater on asteroid Dimorphos", "BBC", "REPORTED"),
+    ("Poland plans no-fly zone; presses NATO on intercepts", "Reuters", "REPORTED", "EUROPE"),
+    ("UniCredit takes control of Commerzbank", "Reuters", "REPORTED", "EUROPE"),
+    ("34 nations urge Russia to halt chemical weapons", "OPCW", "OFFICIAL", "GLOBAL"),
+    ("US urges citizens to leave Iran", "Euronews", "REPORTED", "MIDDLE EAST"),
+    ("Israel kills Hamas economy chief; 9 dead in Gaza", "Reuters", "REPORTED", "MIDDLE EAST"),
+    ("Iraqi court seizes Kurdistan oil", "Al Jazeera", "REPORTED", "MIDDLE EAST"),
+    ("S. Africa voids Phala Phala report, $580k", "France 24", "REPORTED", "AFRICA"),
+    ("Drone attack kills 15 in Sudan", "AllAfrica", "REPORTED", "AFRICA"),
+    ("Bangladesh raises garment pay to 17,000 taka", "AFP", "REPORTED", "S. ASIA"),
+    ("Nepal: 213 Indians presumed dead in floods", "The Hindu", "REPORTED", "S. ASIA"),
+    ("Kim Jong Un urges tactical nuclear push", "KCNA via Reuters", "OFFICIAL", "E. ASIA"),
+    ("N. Korea expels Swiss diplomat in 48 hours", "KCNA via Reuters", "OFFICIAL", "E. ASIA"),
+    ("ASEAN+3 open digital-payments talks in Kyoto", "Reuters", "REPORTED", "E. ASIA"),
+    ("Java gold-mine flood kills at least 13", "ANSA", "REPORTED", "SE ASIA"),
+    ("FedEx jet slips off Miami runway; no injuries", "FAA", "OFFICIAL", "N. AMERICA"),
+    ("US core inflation 3.3%; Dec 9 Fed hike odds ~99%", "CME FedWatch", "REPORTED", "N. AMERICA"),
+    ("Abrego Garcia in Spain after 20-month fight", "Euronews", "REPORTED", "EUROPE"),
+    ("Brazil recalls ambassador from Argentina", "MercoPress", "REPORTED", "S. AMERICA"),
+    ("Puerto Rico court voids Luma deal 5-4", "GlobeTV", "REPORTED", "N. AMERICA"),
+    ("Earth above 2°C for 6 days; record 2.24°C", "Copernicus", "REPORTED", "GLOBAL"),
+    ("Hera snaps giant crater on asteroid Dimorphos", "BBC", "REPORTED", "GLOBAL"),
 ]
 
 NUMBERS = [
@@ -408,11 +418,28 @@ NUMBERS = [
     ("$94.71", "BRENT CRUDE AT 01:37 UTC"),
 ]
 
-REGIONS = [
-    ("EUROPE", 7, BLUE), ("N. AMERICA", 6, RED), ("MIDDLE EAST", 4, AMBER),
-    ("AFRICA", 4, GREEN), ("E. ASIA", 4, TEAL), ("S. ASIA", 3, (120, 60, 160)),
-    ("S. AMERICA", 2, (200, 100, 0)), ("GLOBAL", 3, GREY), ("SE ASIA", 1, (0, 120, 120)),
-]
+# Region counts are computed from the 34 stories above, never typed by hand,
+# so the bar can never drift from the story list again. SE ASIA gets a pink
+# segment: the old teal was indistinguishable from E. ASIA's at 300 px.
+REGION_ORDER = ["EUROPE", "N. AMERICA", "MIDDLE EAST", "AFRICA", "E. ASIA",
+                "S. ASIA", "S. AMERICA", "GLOBAL", "SE ASIA"]
+REGION_COLORS = {
+    "EUROPE": BLUE, "N. AMERICA": RED, "MIDDLE EAST": AMBER,
+    "AFRICA": GREEN, "E. ASIA": TEAL, "S. ASIA": (120, 60, 160),
+    "S. AMERICA": (200, 100, 0), "GLOBAL": GREY, "SE ASIA": (198, 60, 140),
+}
+
+
+def _region_counts():
+    counts = {name: 0 for name in REGION_ORDER}
+    for p in MAIN_PANELS + FEATURES:
+        counts[p["region"]] += 1
+    for _head, _src, _bdg, region in ALSO:
+        counts[region] += 1
+    return [(name, counts[name], REGION_COLORS[name]) for name in REGION_ORDER]
+
+
+REGIONS = _region_counts()
 
 # (lon, lat) pins for panels 1-13 — spread so no two pins touch
 PINS = {
@@ -441,8 +468,10 @@ def render():
     d.text(((W - d.textlength(red_text, font=rf)) / 2, 78), red_text,
            font=rf, fill=(255, 255, 255))
 
-    # ---- meta line
-    meta = "THE WORLD IN ONE DAY  ·  34 STORIES  ·  9 REGIONS  ·  ALL DATED 26 NOV 2026 UTC"
+    # ---- meta line (counts computed from the story data, not typed)
+    total_stories = sum(c for _, c, _ in REGIONS)
+    meta = ("THE WORLD IN ONE DAY  ·  %d STORIES  ·  %d REGIONS  ·  ALL DATED 26 NOV 2026 UTC"
+            % (total_stories, len(REGIONS)))
     mf = font(12, bold=True)
     d.text(((W - d.textlength(meta, font=mf)) / 2, 104), meta, font=mf, fill=INK)
     d.line([12, 122, W - 12, 122], fill=INK, width=1)
@@ -459,12 +488,17 @@ def render():
             d.line([x - 6, 142, x - 6, 194], fill=LIGHTGREY, width=1)
     d.line([12, 198, W - 12, 198], fill=INK, width=1)
 
-    # ---- timeline (UTC) — six real stamps, morning to midday, all INSIDE
-    # the strip: times below the line, event names under the times.
+    # ---- timeline (UTC) — six stamps already on the record by the 09:00
+    # UTC cutoff. The 01:37 Brent print is the verified Reuters market
+    # figure; no guessed midday hour is shown. Times below the line,
+    # event names under the times.
     d.text((12, 202), "TIMELINE · UTC", font=font(10, bold=True), fill=BLUE)
-    tl = [("01:00", "BOK RAISES RATE"), ("01:40", "FEDEX SLIPS, MIAMI"),
-          ("02:18", "34 NATIONS URGE RUSSIA"), ("02:56", "CARTAGENA COUNT: 76"),
-          ("07:57", "GREER: TARIFFS MONTHS AWAY"), ("12:00", "EU SUMMIT, BRUSSELS")]
+    cutoff = "THROUGH 09:00 UTC"
+    cf = font(9, bold=True)
+    d.text((W - 16 - d.textlength(cutoff, font=cf), 202), cutoff, font=cf, fill=GREY)
+    tl = [("01:00", "BOK RAISES RATE"), ("01:37", "BRENT $94.71"),
+          ("01:40", "FEDEX SLIPS, MIAMI"), ("02:18", "34 NATIONS URGE RUSSIA"),
+          ("02:56", "CARTAGENA COUNT 76"), ("07:57", "GREER: TARIFFS MONTHS AWAY")]
     d.line([120, 214, W - 16, 214], fill=GREY, width=2)
     seg = (W - 16 - 120) / len(tl)
     for i, (t, label) in enumerate(tl):
@@ -476,7 +510,7 @@ def render():
         lf = font(8, bold=True)
         lw = d.textlength(label, font=lf)
         d.text((max(8, min(cx - lw / 2, W - 16 - lw)), 231), label, font=lf, fill=INK)
-    d.line([12, 240, W - 12, 240], fill=INK, width=1)
+    d.line([12, 242, W - 12, 242], fill=INK, width=1)
 
     # ---- three main panels: illustration ~30% of card height, headline
     # ~19px serif bold so it stays readable at 300px, source on every card
@@ -524,7 +558,7 @@ def render():
     # so the colours never clash with the region bar below.
     d.text((12, 676), "ALSO ON THURSDAY 26 NOVEMBER", font=font(11, bold=True), fill=RED)
     d.line([12, 692, W - 12, 692], fill=INK, width=1)
-    for i, (head, src, bdg) in enumerate(ALSO):
+    for i, (head, src, bdg, _region) in enumerate(ALSO):
         col, row = divmod(i, 11)
         x = 8 + col * 504
         y = 698 + row * 13
@@ -537,7 +571,7 @@ def render():
     # ---- mini world map "WHERE IT HAPPENED" + proportional region bar
     d.text((12, 840), "WHERE IT HAPPENED — PINS 1–13 MATCH THE PANELS ABOVE",
            font=font(11, bold=True), fill=RED)
-    d.text((656, 840), "STORIES BY REGION — 34 TOTAL",
+    d.text((656, 840), "STORIES BY REGION — %d TOTAL" % total_stories,
            font=font(10, bold=True), fill=RED)
     mx, my, mw, mh = 8, 854, 640, 76
     d.rectangle([mx, my, mx + mw, my + mh], fill=(210, 226, 238), outline=INK, width=1)
@@ -592,7 +626,7 @@ def render():
     for name, count, color in REGIONS:
         seg_w = bw * count / total
         d.rectangle([cx, by, cx + seg_w, by + bh], fill=color, outline=(255, 255, 255))
-        if seg_w >= 20:
+        if seg_w >= 10:
             cf = font(9, bold=True)
             cw = d.textlength(str(count), font=cf)
             d.text((cx + (seg_w - cw) / 2, by + 4), str(count), font=cf,
@@ -612,11 +646,12 @@ def render():
     d.text((16, 938), "DATE CHECK", font=font(11, bold=True), fill=RED)
     dc1 = ("Every story here happened or was first reported on Thursday 26 November 2026 "
            "(UTC). Announced 25 Nov but confirmed or developed on 26 Nov — Poland "
-           "no-fly zone, Swiss diplomat expulsion, USTR tariff proposal, Cairo toll — are framed "
+           "no-fly zone, USTR tariff plan, Cairo toll, Cartagena count — are framed "
            "as 26 Nov developments.")
     dc2 = ("EXCLUDED (24 Nov): Huawei verdict (10 of 12) · China probes Shanghai party chief "
            "Chen Jining. EXCLUDED (25 Nov): Champions League Matchday 5 · Australia–Solomon "
-           "Islands pact · Steelers release Aaron Rodgers · Jensen Huang's Nvidia return.")
+           "Islands pact · Steelers release Aaron Rodgers · Jensen Huang's Nvidia return. "
+           "Swiss expulsion announced 25 Nov; its 48-hour deadline runs to 27 Nov.")
     y = draw_wrapped(d, dc1, font(9), 16, 950, 992, fill=INK, leading=10)
     draw_wrapped(d, dc2, font(9, bold=True), 16, y + 1, 992, fill=DARKRED, leading=10)
 
@@ -648,7 +683,9 @@ def render():
         if tail:
             d.text((lx, ly), tail, font=lf, fill=INK)
             lx += d.textlength(tail, font=lf)
-    credit = "Original graphics, not photos  ·  34 stories  ·  9 regions  ·  All figures as reported 26 Nov 2026 UTC"
+    credit = ("Original graphics, not photos  ·  %d stories  ·  %d regions  ·  "
+              "All figures as reported 26 Nov 2026 UTC"
+              % (total_stories, len(REGIONS)))
     cf = font(8)
     d.text(((W - d.textlength(credit, font=cf)) / 2, 1007), credit, font=cf, fill=GREY)
     return img, d
