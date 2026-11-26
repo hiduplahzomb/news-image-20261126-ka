@@ -10,34 +10,55 @@ with PIL vector shapes (no stock images, no AI-generated art).
 
 Layout: giant serif date masthead, red top-stories bar, "The Day in
 Numbers" strip of 6 figures (€1.58T EU budget proposal 2028-34 ·
-1,000,000 SpaceX satellites · $227M Nigeria meth seizure · 1,990 Canary
-arrivals · 76 hostages freed · $94.71 Brent crude), a UTC timeline with
-six verified stamps from 01:00 to 07:57 and an honest THROUGH 09:00 UTC
+47.6% UniCredit vote share in Commerzbank · 13 dead in the Java
+gold-mine flood · 3.25% Bank of Korea base rate · 76 Cartagena
+hostages counted · $94.71 Brent crude), a UTC timeline with six
+verified stamps from 01:00 to 07:57 and an honest THROUGH 09:15 UTC
 cutoff (the 01:37 Brent print at $94.71 is the Reuters market figure;
 no guessed midday hour is shown), 3 main panels, 10 feature panels, a
 21-item "Also on Thursday" list in 2 numbered columns (14–34), a numbered
-world map (pins 1–13) with a proportional region bar whose counts are
-computed from the story data itself, and a red DATE CHECK box that also
-lists the big 24 and 25 November stories deliberately excluded.
+world map (pins 1–13, nearest pair ~18 px apart) with a proportional
+region bar whose counts are computed from the story data itself, and a
+red DATE CHECK box that also lists the big 24 and 25 November stories
+deliberately excluded.
 
 Every item carries a certainty badge (CONFIRMED / OFFICIAL / REPORTED /
 CLAIM); one-sided Houthi and Iran claims are marked CLAIM, while the Brent
 $94.71 market figure sits in Card 2's label bar tagged MARKET, apart from
-the claim badge. CONFIRMED is used on five cards (UK bills, Greece strike,
-Canary arrivals, Macy's parade, Cartagena count), each verified by two
-outlets. OFFICIAL is used only where the named source is an official
-institution (USTR, Bank of Korea, FCC, Egypt Health Ministry, NDLEA,
-OPCW); CONFIRMED needs two or more outlets. Figures, names and dates
-follow the brief exactly — the Bank of Korea's 4.1% 2027 growth forecast,
-the ~99% Dec 9 Fed hike odds, and the 76-hostage / 17-hour Cartagena siege
-were all re-checked against live sources on 26 Nov 2026. Round-3 checks:
-the ASEAN+3 digital-payments talks in Kyoto (Reuters, 26 Nov) replaced a
-brief that duplicated Lead 1; the Gaza brief now names the 26 Nov killing
-of Hamas economy chief Khaled Abu Nada (Reuters, 26 Nov), not the 24 Nov
-security-chief strike; the Australia–Solomon Islands pact was signed in
-Canberra on 25 Nov (PM of Australia), so it stays under EXCLUDED (25 Nov);
-and the Swiss expulsion is listed separately in DATE CHECK — announced
-25 Nov, its 48-hour deadline runs to 27 Nov.
+the claim badge. CONFIRMED is used on four cards (UniCredit, Java mine,
+Macy's parade, Cartagena count), each verified by two outlets. OFFICIAL is
+used only where the named source is an official institution (USTR, Bank of
+Korea, Egypt Health Ministry, FAA, CME FedWatch, KCNA). Figures, names and
+dates were re-checked against live sources on 26 Nov 2026.
+
+Round-4 rebuild: every 24–25 Nov item was taken out of the main slots and
+moved to the EXCLUDED lists — FCC's 1M SpaceX satellites, Ofgem's +26%
+bills, the Greece strike, the NDLEA $227M seizure, the OPCW Russia
+statement, the Swiss expulsion, the Canary 1,990 arrivals, and more. Their
+places went to stories verified for 26 Nov UTC: UniCredit clearing the
+last Commerzbank hurdle (Reuters · WSJ, 07:28 GMT), the Kenya court ruling
+on the Ebola site, the Java mine toll of 13 (Reuters · Xinhua), the
+ASEAN+3 payments talks in Kyoto, and the Asia shares bounce. The brief
+list was rebuilt the same way — the Poland no-fly plan, the OPCW
+statement, the Iran leave warning, the Iraq court ruling, Phala Phala,
+the Sudan toll, the Nepal list, the Bangladesh pay rise, the Luma
+verdict, the Earth 2°C streak, Abrego Garcia, the Brazil envoy and the
+Hera photo all left, replaced by 26 Nov items such as Japan's tariff
+protest, the GfK mood reading, the Mumbai 26/11 anniversary, the Kushner
+talks, the NFL tripleheader and the Fed's 98% hike odds. The DATE CHECK
+box now names only the five 25 Nov stories that genuinely developed on
+26 Nov (USTR tariffs, Cairo toll, Cartagena count, Macy's storm,
+Shenzhou crew aboard) and drops the old Swiss-deadline sentence. The
+timeline lost the OPCW stamp (a 25 Nov story) and the "GREER:" colon;
+Cards 1–3 gained breathing room under their subtexts and badges; and
+the region bar now pairs bright amber against red and bright cyan
+against green so the neighbours stay apart at thumbnail size.
+
+Two things to know: the Shenzhou-24 crew card is kept on purpose — the
+launch and docking were 25 Nov, but the crew is aboard Tiangong through
+26 Nov, and the card says so in plain words. And the FedEx brief is
+dated by the clock that counts here: the jet slipped off the runway at
+20:40 in Miami on Wednesday night, which is 01:40 UTC on Thursday.
 
 ## Run
 
