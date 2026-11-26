@@ -120,29 +120,37 @@ def scene_gulf(d, x, y, w, h):
               fill=(255, 140, 0))
     d.polygon([(x + w - 40, y + 30), (x + w - 30, y + 14), (x + w - 20, y + 30)],
               fill=(255, 220, 0))
-    # oil barrel
+    # tanker ship on the water, hull low in the frame
+    d.polygon([(x + 8, y + h - 26), (x + 78, y + h - 26),
+               (x + 70, y + h - 16), (x + 16, y + h - 16)], fill=(139, 0, 0))
+    d.rectangle([x + 18, y + h - 38, x + 34, y + h - 26], fill=(200, 200, 200))
+    d.rectangle([x + 40, y + h - 34, x + 68, y + h - 26], fill=(29, 78, 216))
+    # oil barrel with $ — the market figure, not the claim
     d.ellipse([x + w - 78, y + h - 34, x + w - 52, y + h - 16], fill=(20, 20, 20))
     d.text((x + w - 74, y + h - 30), "$", font=font(11, bold=True), fill=(255, 255, 255))
 
 
 def scene_cairo(d, x, y, w, h):
-    scene_sky(d, x, y, w, h, (235, 190, 150))
-    scene_ground(d, x, y + h - 16, w, 16, (60, 60, 60))
-    # tanker truck: cab + tank
-    d.rounded_rectangle([x + 16, y + h - 52, x + w - 60, y + h - 22], radius=12,
-                        fill=(200, 200, 200), outline=INK)
-    d.rectangle([x + w - 58, y + h - 48, x + w - 16, y + h - 22], fill=RED, outline=INK)
-    d.rectangle([x + w - 52, y + h - 44, x + w - 34, y + h - 34], fill=SKY)
+    # AFTERMATH, not the blaze: the fire burned Wednesday night; on 26 Nov
+    # officials count the dead among the charred wreckage. No live flames.
+    scene_sky(d, x, y, w, h, (215, 205, 190))
+    scene_ground(d, x, y + h - 16, w, 16, (50, 50, 50))
+    # scorched patch of road
+    d.ellipse([x + 10, y + h - 26, x + w - 10, y + h - 10], fill=(30, 30, 30))
+    # charred tanker: blackened tank + cab, tilted, wheels askew
+    d.rounded_rectangle([x + 16, y + h - 50, x + w - 60, y + h - 22], radius=12,
+                        fill=(60, 60, 60), outline=INK)
+    d.rectangle([x + w - 58, y + h - 48, x + w - 16, y + h - 22], fill=(90, 40, 40),
+                outline=INK)
+    d.rectangle([x + w - 52, y + h - 44, x + w - 34, y + h - 34], fill=(120, 120, 120))
     for wx in (x + 30, x + 78, x + w - 36):
         d.ellipse([wx, y + h - 24, wx + 16, y + h - 8], fill=INK)
-    # flames above tank
-    d.polygon([(x + 40, y + h - 52), (x + 56, y + h - 74), (x + 72, y + h - 52)],
-              fill=(255, 140, 0))
-    d.polygon([(x + 48, y + h - 52), (x + 56, y + h - 66), (x + 64, y + h - 52)],
-              fill=(255, 220, 0))
-    # smoke
-    for i, (sx, sy, sr) in enumerate([(x + 90, y + 8, 9), (x + 104, y + 16, 7), (x + 78, y + 18, 6)]):
-        d.ellipse([sx - sr, sy - sr, sx + sr, sy + sr], fill=(120, 120, 120))
+    # thin smoke wisps only — the fire is out
+    for i, (sx, sy, sr) in enumerate([(x + 90, y + 8, 7), (x + 104, y + 16, 5),
+                                      (x + 78, y + 18, 4)]):
+        d.ellipse([sx - sr, sy - sr, sx + sr, sy + sr], fill=(160, 160, 160))
+    # two wrecked cars beside the tanker
+    d.rectangle([x + 150, y + h - 30, x + 186, y + h - 18], fill=(40, 40, 40))
 
 
 def scene_eu(d, x, y, w, h):
@@ -189,13 +197,15 @@ def scene_canary(d, x, y, w, h):
     d.rectangle([x, y + h - 26, x + w, y + h], fill=(29, 78, 216))
     d.arc([x + 6, y + h - 22, x + 60, y + h - 6], 0, 180, fill=(255, 255, 255), width=2)
     d.arc([x + 120, y + h - 22, x + 174, y + h - 6], 0, 180, fill=(255, 255, 255), width=2)
-    # boat
-    d.polygon([(x + 60, y + h - 40), (x + 140, y + h - 40), (x + 128, y + h - 24),
-               (x + 72, y + h - 24)], fill=(139, 0, 0))
-    d.rectangle([x + 96, y + 8, x + 100, y + h - 40], fill=(90, 60, 30))
-    d.polygon([(x + 100, y + 10), (x + 100, y + 30), (x + 126, y + 30)], fill=(255, 255, 255))
-    for px in (x + 72, x + 90, x + 108):
-        d.ellipse([px, y + h - 52, px + 9, y + h - 43], fill=(240, 200, 160))
+    # crowded wooden dinghy — no sail, no mast: a migrant boat, not a yacht
+    d.polygon([(x + 34, y + h - 42), (x + 166, y + h - 42), (x + 152, y + h - 24),
+               (x + 48, y + h - 24)], fill=(120, 80, 40))
+    d.rectangle([x + 34, y + h - 42, x + 166, y + h - 36], fill=(90, 60, 30))
+    # many people packed shoulder to shoulder
+    for px in (x + 44, x + 62, x + 80, x + 98, x + 116, x + 134, x + 150):
+        d.ellipse([px, y + h - 56, px + 11, y + h - 45], fill=(240, 200, 160))
+        d.rectangle([px - 1, y + h - 45, px + 12, y + h - 40],
+                    fill=[RED, BLUE, GREEN, (232, 180, 40)][px % 4])
 
 
 def scene_nigeria(d, x, y, w, h):
@@ -317,13 +327,16 @@ def blit_scene(img, name, x, y, w, h):
 
 # ---------------------------------------------------------------- data
 MAIN_PANELS = [
-    dict(num=1, label="14 NATIONS · UP TO 25%", scene="tariff", badge="REPORTED",
-         headline="US PROPOSES NEW TARIFFS FOR 14 PARTNERS",
-         sub="India faces up to 25% — 17% if a trade deal is struck."),
-    dict(num=2, label="BRENT $94.71", scene="gulf", badge="CLAIM",
-         headline="GULF ESCALATION: HOUTHI, IRAN CLAIMS RATTLE OIL",
-         sub="Houthis claim Ras Tanura strike; Iran claims mines."),
-    dict(num=3, label="31 DEAD", scene="cairo", badge="REPORTED",
+    dict(num=1, label="14 NATIONS · UP TO 25%", scene="tariff", badge="OFFICIAL",
+         source="USTR · REUTERS",
+         headline="US PROPOSES NEW TARIFFS ON 14 PARTNERS",
+         sub="India faces 25% — 17% if a trade deal is struck."),
+    dict(num=2, label="BRENT $94.71 · 01:37 UTC", scene="gulf", badge="CLAIM",
+         source="REUTERS · ARAB NEWS",
+         headline="HOUTHI, IRAN CLAIMS RATTLE GULF OIL",
+         sub="Houthis claim Ras Tanura hit; Iran claims mines."),
+    dict(num=3, label="31 DEAD · 21 INJURED", scene="cairo", badge="OFFICIAL",
+         source="EGYPT HEALTH MINISTRY · CNN",
          headline="CAIRO TANKER FIRE KILLS 31, INJURES 21",
          sub="Toll confirmed 26 Nov after Wednesday night fire."),
 ]
@@ -344,10 +357,10 @@ FEATURES = [
     dict(num=8, label="$227M · 1.5 T", scene="nigeria", badge="OFFICIAL", source="NDLEA",
          headline="NIGERIA BUSTS $227M METH LAB",
          sentence="Agents seize 1.5 tonnes of meth."),
-    dict(num=9, label="TIANGONG", scene="space", badge="CONFIRMED", source="Guardian",
+    dict(num=9, label="TIANGONG", scene="space", badge="REPORTED", source="Guardian",
          headline="FIRST PAKISTANI ASTRONAUT ABOARD TIANGONG",
          sentence="First foreign visitor aboard; stays about a week."),
-    dict(num=10, label="3.25%", scene="korea", badge="OFFICIAL", source="Yonhap",
+    dict(num=10, label="3.25%", scene="korea", badge="OFFICIAL", source="Bank of Korea",
          headline="BANK OF KOREA LIFTS RATE TO 3.25%",
          sentence="Rate up 25 bps; 2027 growth seen at 4.1%."),
     dict(num=11, label="PARADE DELAYED", scene="storm", badge="REPORTED", source="BBC",
@@ -355,15 +368,15 @@ FEATURES = [
          sentence="Parade moves to Sat 28 Nov; 6,000+ flights delayed."),
     dict(num=12, label="76 FREED", scene="colombia", badge="REPORTED", source="BBC",
          headline="COLOMBIA FREES 76 HOSTAGES",
-         sentence="Police end a 17-hour siege in Cartagena."),
-    dict(num=13, label="1M SATELLITES", scene="fcc", badge="OFFICIAL", source="CNBC",
+         sentence="Police end 17-hour siege; total put at 76 on 26 Nov."),
+    dict(num=13, label="1M SATELLITES", scene="fcc", badge="OFFICIAL", source="FCC · CNBC",
          headline="FCC CLEARS 1 MILLION SPACEX SATELLITES",
          sentence="First US approval for orbital data centres."),
 ]
 
 # 21 one-line items (3 big + 10 features + 21 = 34 stories).
 ALSO = [
-    ("Poland plans no-fly zone at Ukraine border", "Reuters", "OFFICIAL"),
+    ("Poland plans no-fly zone at Ukraine border", "Reuters", "REPORTED"),
     ("UniCredit takes control of Commerzbank", "Reuters", "REPORTED"),
     ("34 nations urge Russia to halt chemical weapons", "OPCW", "OFFICIAL"),
     ("US urges citizens to leave Iran", "Euronews", "REPORTED"),
@@ -372,10 +385,10 @@ ALSO = [
     ("S. Africa voids Phala Phala report, $580k", "France 24", "REPORTED"),
     ("Drone attack kills 15 in Sudan", "AllAfrica", "REPORTED"),
     ("Bangladesh raises garment pay to 17,000 taka", "AFP", "REPORTED"),
-    ("Nepal: 213 Indians presumed dead in floods", "The Hindu", "OFFICIAL"),
+    ("Nepal: 213 Indians presumed dead in floods", "The Hindu", "REPORTED"),
     ("Kim Jong Un urges tactical nuclear push", "KCNA via Reuters", "OFFICIAL"),
     ("N. Korea expels Swiss diplomat in 48 hours", "KCNA via Reuters", "OFFICIAL"),
-    ("China probes Shanghai party chief Chen Jining", "NPR", "REPORTED"),
+    ("USTR's Greer: new tariffs months away", "IANS", "REPORTED"),
     ("Java gold-mine flood kills at least 13", "ANSA", "REPORTED"),
     ("FedEx jet slips off Miami runway; no injuries", "FAA", "OFFICIAL"),
     ("US core inflation 3.3%; Dec 9 Fed hike odds ~99%", "CME FedWatch", "REPORTED"),
@@ -392,6 +405,7 @@ NUMBERS = [
     ("$227M", "METH SEIZED IN NIGERIA"),
     ("1,990", "CANARY ARRIVALS IN ONE DAY"),
     ("76", "HOSTAGES FREED IN CARTAGENA"),
+    ("$94.71", "BRENT CRUDE AT 01:37 UTC"),
 ]
 
 REGIONS = [
@@ -400,11 +414,11 @@ REGIONS = [
     ("S. AMERICA", 2, (200, 100, 0)), ("GLOBAL", 3, GREY), ("SE ASIA", 1, (0, 120, 120)),
 ]
 
-# (lon, lat) pins for panels 1-13
+# (lon, lat) pins for panels 1-13 — spread so no two pins touch
 PINS = {
-    1: (-77, 39), 2: (50, 27), 3: (31, 30), 4: (4, 51), 5: (0, 51),
-    6: (24, 38), 7: (-16, 28), 8: (8, 9), 9: (70, 30), 10: (127, 37),
-    11: (-74, 41), 12: (-75, 10), 13: (-97, 26),
+    1: (-85, 36), 2: (50, 27), 3: (32, 29), 4: (7, 50), 5: (-4, 54),
+    6: (19, 41), 7: (-16, 28), 8: (8, 9), 9: (70, 30), 10: (127, 37),
+    11: (-72, 42), 12: (-75, 10), 13: (-99, 31),
 }
 
 
@@ -428,28 +442,29 @@ def render():
            font=rf, fill=(255, 255, 255))
 
     # ---- meta line
-    meta = "THE WORLD IN ONE DAY  ·  34 STORIES  ·  9 REGIONS"
+    meta = "THE WORLD IN ONE DAY  ·  34 STORIES  ·  9 REGIONS  ·  ALL DATED 26 NOV 2026 UTC"
     mf = font(12, bold=True)
     d.text(((W - d.textlength(meta, font=mf)) / 2, 104), meta, font=mf, fill=INK)
     d.line([12, 122, W - 12, 122], fill=INK, width=1)
 
-    # ---- THE DAY IN NUMBERS
+    # ---- THE DAY IN NUMBERS (6 KPIs, one from a Lead story: Brent)
     d.text((12, 126), "THE DAY IN NUMBERS", font=font(11, bold=True), fill=RED)
-    col_w, x0 = 200, 12
+    col_w, x0 = 168, 12
     for i, (num, label) in enumerate(NUMBERS):
         x = x0 + i * col_w
-        nf = fit_font(d, num, 188, 24, bold=True)
+        nf = fit_font(d, num, 160, 24, bold=True)
         d.text((x, 142), num, font=nf, fill=RED if i % 2 == 0 else BLUE)
-        draw_wrapped(d, label, font(8, bold=True), x, 170, 188, fill=INK, leading=10)
+        draw_wrapped(d, label, font(8, bold=True), x, 170, 160, fill=INK, leading=10)
         if i:
             d.line([x - 6, 142, x - 6, 194], fill=LIGHTGREY, width=1)
     d.line([12, 198, W - 12, 198], fill=INK, width=1)
 
-    # ---- timeline (UTC) — only the two clock times actually reported
+    # ---- timeline (UTC) — six real stamps, morning to midday, all INSIDE
+    # the strip: times below the line, event names under the times.
     d.text((12, 202), "TIMELINE · UTC", font=font(10, bold=True), fill=BLUE)
-    tl = [("01:40", "FEDEX SLIPS, MIAMI"), ("02:18", "34 NATIONS URGE RUSSIA"),
-          ("—", "EU DEBATES €1.58T BUDGET"), ("—", "US PROPOSES TARIFFS"),
-          ("—", "CAIRO FIRE: 31 DEAD")]
+    tl = [("01:00", "BOK RAISES RATE"), ("01:40", "FEDEX SLIPS, MIAMI"),
+          ("02:18", "34 NATIONS URGE RUSSIA"), ("02:56", "CARTAGENA COUNT: 76"),
+          ("07:57", "GREER: TARIFFS MONTHS AWAY"), ("12:00", "EU SUMMIT, BRUSSELS")]
     d.line([120, 214, W - 16, 214], fill=GREY, width=2)
     seg = (W - 16 - 120) / len(tl)
     for i, (t, label) in enumerate(tl):
@@ -457,14 +472,15 @@ def render():
         d.ellipse([cx - 5, 209, cx + 5, 219], fill=RED, outline=INK)
         tf = font(9, bold=True)
         tw2 = d.textlength(t, font=tf)
-        d.text((cx - tw2 / 2, 200 - 14), t, font=tf, fill=RED)
+        d.text((cx - tw2 / 2, 221), t, font=tf, fill=RED)
         lf = font(8, bold=True)
         lw = d.textlength(label, font=lf)
-        d.text((max(8, min(cx - lw / 2, W - 16 - lw)), 220), label, font=lf, fill=INK)
-    d.line([12, 238, W - 12, 238], fill=INK, width=1)
+        d.text((max(8, min(cx - lw / 2, W - 16 - lw)), 231), label, font=lf, fill=INK)
+    d.line([12, 240, W - 12, 240], fill=INK, width=1)
 
-    # ---- three main panels
-    y0, ph, pw = 244, 160, 328
+    # ---- three main panels: illustration ~30% of card height, headline
+    # ~19px serif bold so it stays readable at 300px, source on every card
+    y0, ph, pw = 246, 164, 328
     for i, p in enumerate(MAIN_PANELS):
         x = 8 + i * (pw + 8)
         d.rectangle([x, y0, x + pw, y0 + ph], fill=PAPER, outline=INK, width=1)
@@ -472,28 +488,25 @@ def render():
         d.rectangle([x, y0, x + 22, y0 + 22], fill=INK)
         d.text((x + 7, y0 + 4), str(p["num"]), font=font(12, bold=True), fill=(255, 255, 255))
         # illustration
-        blit_scene(img, p["scene"], x + 1, y0 + 23, pw - 2, 62)
+        blit_scene(img, p["scene"], x + 1, y0 + 23, pw - 2, 50)
         # big label bar
-        d.rectangle([x + 1, y0 + 85, x + pw - 1, y0 + 105], fill=DARKRED)
+        d.rectangle([x + 1, y0 + 73, x + pw - 1, y0 + 91], fill=DARKRED)
         lf = fit_font(d, p["label"], pw - 16, 13, bold=True)
-        d.text(((2 * x + pw - d.textlength(p["label"], font=lf)) / 2, y0 + 89),
+        d.text(((2 * x + pw - d.textlength(p["label"], font=lf)) / 2, y0 + 77),
                p["label"], font=lf, fill=(255, 255, 255))
-        draw_wrapped(d, p["headline"], font(11, bold=True), x + 6, y0 + 108, pw - 12,
-                     leading=13)
-        sub = p["sub"]
-        sf = font(8)
-        while len(sub) > 4 and d.textlength(sub, font=sf) > pw - 76:
-            sub = sub.rsplit(" ", 1)[0] if " " in sub else sub[:-1]
-        d.text((x + 6, y0 + ph - 15), sub, font=sf, fill=GREY)
-        badge(d, x + pw - 62, y0 + ph - 16, p["badge"])
+        draw_wrapped(d, p["headline"], font(19, bold=True, serif=True), x + 6, y0 + 94,
+                     pw - 12, leading=21)
+        d.text((x + 6, y0 + 139), p["sub"], font=font(10), fill=INK)
+        d.text((x + 6, y0 + ph - 13), p["source"], font=font(9, bold=True), fill=BLUE)
+        badge(d, x + pw - 62, y0 + ph - 14, p["badge"])
 
     # ---- ten feature panels, 2 rows x 5
-    d.text((12, 410), "THE WORLD IN DETAIL", font=font(11, bold=True), fill=RED)
+    d.text((12, 416), "THE WORLD IN DETAIL", font=font(11, bold=True), fill=RED)
     fw, fh = 196, 116
     for idx, p in enumerate(FEATURES):
         row, col = divmod(idx, 5)
         x = 8 + col * (fw + 6)
-        y = 428 + row * (fh + 4)
+        y = 434 + row * (fh + 4)
         d.rectangle([x, y, x + fw, y + fh], fill=PAPER, outline=INK, width=1)
         blit_scene(img, p["scene"], x + 1, y + 1, fw - 2, 36)
         d.rectangle([x, y, x + 20, y + 18], fill=INK)
@@ -506,22 +519,27 @@ def render():
         d.text((x + 6, y + fh - 15), p["source"], font=font(8, bold=True), fill=BLUE)
         badge(d, x + fw - 66, y + fh - 16, p["badge"])
 
-    # ---- ALSO ON THURSDAY 26 NOVEMBER: 21 one-liners, 3 cols x 7
-    d.text((12, 670), "ALSO ON THURSDAY 26 NOVEMBER", font=font(11, bold=True), fill=RED)
-    d.line([12, 686, W - 12, 686], fill=INK, width=1)
+    # ---- ALSO ON THURSDAY 26 NOVEMBER: 21 one-liners, 2 cols x 11,
+    # numbered 14-34. Plain number markers — no badge-coloured squares,
+    # so the colours never clash with the region bar below.
+    d.text((12, 676), "ALSO ON THURSDAY 26 NOVEMBER", font=font(11, bold=True), fill=RED)
+    d.line([12, 692, W - 12, 692], fill=INK, width=1)
     for i, (head, src, bdg) in enumerate(ALSO):
-        col, row = divmod(i, 7)
-        x = 8 + col * 336
-        y = 692 + row * 16
-        d.rectangle([x, y + 3, x + 8, y + 11], fill=BADGE_COLORS[bdg])
+        col, row = divmod(i, 11)
+        x = 8 + col * 504
+        y = 698 + row * 13
+        nf = font(9, bold=True)
+        d.text((x, y), "%d." % (14 + i), font=nf, fill=RED)
         text = "%s (%s · %s)" % (head, src, bdg)
-        lf = fit_font(d, text, 318, 9)
-        d.text((x + 12, y), text, font=lf, fill=INK)
+        lf = fit_font(d, text, 472, 9)
+        d.text((x + 24, y), text, font=lf, fill=INK)
 
-    # ---- mini world map "WHERE IT HAPPENED" + region pills
-    d.text((12, 806), "WHERE IT HAPPENED — PINS 1–13 MATCH THE PANELS ABOVE",
+    # ---- mini world map "WHERE IT HAPPENED" + proportional region bar
+    d.text((12, 840), "WHERE IT HAPPENED — PINS 1–13 MATCH THE PANELS ABOVE",
            font=font(11, bold=True), fill=RED)
-    mx, my, mw, mh = 8, 822, 640, 98
+    d.text((656, 840), "STORIES BY REGION — 34 TOTAL",
+           font=font(10, bold=True), fill=RED)
+    mx, my, mw, mh = 8, 854, 640, 76
     d.rectangle([mx, my, mx + mw, my + mh], fill=(210, 226, 238), outline=INK, width=1)
 
     def mxy(lon, lat):
@@ -535,58 +553,104 @@ def render():
          (-75, -30), (-80, -5)],
         [(-10, 36), (0, 50), (-5, 58), (10, 60), (20, 70), (30, 70), (40, 60),
          (30, 45), (20, 40), (10, 38), (0, 36)],
+        # United Kingdom
+        [(-5, 50), (-3, 53), (-5, 56), (-2, 58), (0, 57), (1, 52), (-1, 51)],
         [(-17, 15), (-10, 30), (10, 37), (30, 32), (35, 28), (43, 12), (51, 10),
          (40, -5), (35, -20), (20, -35), (15, -25), (12, 5), (-5, 5)],
         [(40, 70), (60, 70), (90, 75), (120, 72), (150, 70), (170, 66), (160, 60),
          (140, 50), (130, 35), (120, 25), (105, 10), (100, 5), (90, 15), (80, 8),
          (70, 20), (60, 25), (50, 30), (43, 40), (40, 55)],
-        [(113, -22), (130, -12), (142, -11), (150, -20), (153, -27), (146, -39),
-         (140, -38), (130, -32), (115, -35)],
+        # Korean peninsula
+        [(126, 35), (126, 39), (128, 42), (130, 39), (129, 35), (127, 34)],
+        # Japan
+        [(130, 31), (132, 33), (134, 34), (137, 35), (139, 37), (141, 39),
+         (142, 42), (140, 44), (138, 40), (135, 36), (132, 33)],
+        # Indonesia archipelago
+        [(95, 5), (98, 3), (100, 0), (104, -3), (108, -6), (112, -7),
+         (116, -8), (120, -9), (124, -9), (128, -8), (131, -4), (136, -4),
+         (140, -6), (138, -8), (132, -9), (124, -10), (118, -10), (112, -8),
+         (106, -7), (102, -4), (98, -1), (95, 2)],
+        # Australia
+        [(113, -22), (122, -14), (132, -11), (142, -11), (146, -19), (150, -23),
+         (153, -27), (150, -32), (146, -39), (140, -38), (135, -35), (129, -32),
+         (124, -33), (118, -35), (114, -30), (113, -26)],
     ]
     for poly in continents:
         d.polygon([mxy(lon, lat) for lon, lat in poly],
                   fill=(198, 204, 188), outline=GREY)
-    nudge = {4: (6, 50), 5: (-3, 55), 11: (-70, 44)}
     for num in range(1, 14):
-        lon, lat = nudge.get(num, PINS[num])
+        lon, lat = PINS[num]
         px, py = mxy(lon, lat)
         d.ellipse([px - 8, py - 8, px + 8, py + 8], fill=RED, outline=(255, 255, 255), width=1)
         nf = font(8, bold=True)
         nw = d.textlength(str(num), font=nf)
         d.text((px - nw / 2, py - 5), str(num), font=nf, fill=(255, 255, 255))
-    # region pills: stories per region (sum = 34)
+    # region bar: one horizontal bar, segment widths proportional to counts
+    bx, by, bw, bh = 656, 854, 360, 18
+    total = sum(c for _, c, _ in REGIONS)
+    cx = bx
+    for name, count, color in REGIONS:
+        seg_w = bw * count / total
+        d.rectangle([cx, by, cx + seg_w, by + bh], fill=color, outline=(255, 255, 255))
+        if seg_w >= 20:
+            cf = font(9, bold=True)
+            cw = d.textlength(str(count), font=cf)
+            d.text((cx + (seg_w - cw) / 2, by + 4), str(count), font=cf,
+                   fill=(255, 255, 255))
+        cx += seg_w
+    # legend: colour swatch + name + count, 3 columns x 3 rows
     for i, (name, count, color) in enumerate(REGIONS):
         col, row = divmod(i, 3)
-        px = 656 + col * 122
-        py = 822 + row * 32
-        d.rounded_rectangle([px, py, px + 116, py + 26], radius=13, fill=color)
-        label = "%s %d" % (name, count)
-        lf = fit_font(d, label, 108, 10, bold=True)
-        lw = d.textlength(label, font=lf)
-        d.text((px + (116 - lw) / 2, py + 7), label, font=lf, fill=(255, 255, 255))
+        lx = 656 + col * 122
+        ly = 880 + row * 15
+        d.rectangle([lx, ly, lx + 12, ly + 10], fill=color)
+        d.text((lx + 16, ly - 1), "%s %d" % (name, count), font=font(9, bold=True),
+               fill=INK)
 
     # ---- DATE CHECK red box
-    d.rectangle([8, 924, W - 8, 988], fill=(255, 235, 235), outline=RED, width=2)
-    d.text((16, 928), "DATE CHECK", font=font(11, bold=True), fill=RED)
+    d.rectangle([8, 934, W - 8, 992], fill=(255, 235, 235), outline=RED, width=2)
+    d.text((16, 938), "DATE CHECK", font=font(11, bold=True), fill=RED)
     dc1 = ("Every story here happened or was first reported on Thursday 26 November 2026 "
-           "(UTC). Items announced 25 Nov but confirmed or developed on 26 Nov — Poland "
+           "(UTC). Announced 25 Nov but confirmed or developed on 26 Nov — Poland "
            "no-fly zone, Swiss diplomat expulsion, USTR tariff proposal, Cairo toll — are framed "
            "as 26 Nov developments.")
-    dc2 = ("EXCLUDED (25 Nov): Champions League Matchday 5 · Huawei verdict (10 of 12) · "
-           "Australia–Solomon Islands pact · Steelers release Aaron Rodgers · Israeli "
-           "judge on Netanyahu bribery charges · Jensen Huang's Nvidia return (23–24 Nov).")
-    y = draw_wrapped(d, dc1, font(9), 16, 941, 992, fill=INK, leading=10)
+    dc2 = ("EXCLUDED (24 Nov): Huawei verdict (10 of 12) · China probes Shanghai party chief "
+           "Chen Jining. EXCLUDED (25 Nov): Champions League Matchday 5 · Australia–Solomon "
+           "Islands pact · Steelers release Aaron Rodgers · Jensen Huang's Nvidia return.")
+    y = draw_wrapped(d, dc1, font(9), 16, 950, 992, fill=INK, leading=10)
     draw_wrapped(d, dc2, font(9, bold=True), 16, y + 1, 992, fill=DARKRED, leading=10)
 
-    # ---- footer legend
-    legend = ("CERTAINTY: CONFIRMED = verified  ·  OFFICIAL = official source  ·  "
-              "REPORTED = single-outlet report  ·  CLAIM = one-sided claim.  "
-              "US market close excluded — that was the Wed 25 Nov session.")
-    lf = fit_font(d, legend, 1000, 9)
-    d.text(((W - d.textlength(legend, font=lf)) / 2, 990), legend, font=lf, fill=INK)
-    credit = "Rendered in Python (PIL)  ·  34 stories  ·  9 regions  ·  All figures as reported 26 Nov 2026 UTC"
+    # ---- footer legend: colour swatches in front of each certainty level
+    legend_parts = [
+        ("CERTAINTY: ", None, None),
+        ("CONFIRMED", "CONFIRMED", " = verified 2+ outlets  ·  "),
+        ("OFFICIAL", "OFFICIAL", " = official source  ·  "),
+        ("REPORTED", "REPORTED", " = single-outlet report  ·  "),
+        ("CLAIM", "CLAIM", " = one-sided claim. "),
+        ("US market close excluded — that was the Wed 25 Nov session.", None, None),
+    ]
+    lf = font(9)
+    total_w = 0
+    for text, swatch, tail in legend_parts:
+        if swatch:
+            total_w += 14
+        total_w += d.textlength(text, font=lf)
+        if tail:
+            total_w += d.textlength(tail, font=lf)
+    lx = (W - total_w) / 2
+    ly = 995
+    for text, swatch, tail in legend_parts:
+        if swatch:
+            d.rectangle([lx, ly + 1, lx + 11, ly + 10], fill=BADGE_COLORS[swatch])
+            lx += 14
+        d.text((lx, ly), text, font=lf, fill=INK)
+        lx += d.textlength(text, font=lf)
+        if tail:
+            d.text((lx, ly), tail, font=lf, fill=INK)
+            lx += d.textlength(tail, font=lf)
+    credit = "Original graphics, not photos  ·  34 stories  ·  9 regions  ·  All figures as reported 26 Nov 2026 UTC"
     cf = font(8)
-    d.text(((W - d.textlength(credit, font=cf)) / 2, 1004), credit, font=cf, fill=GREY)
+    d.text(((W - d.textlength(credit, font=cf)) / 2, 1007), credit, font=cf, fill=GREY)
     return img, d
 
 
