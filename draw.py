@@ -345,10 +345,10 @@ def blit_scene(img, name, x, y, w, h):
 
 # ---------------------------------------------------------------- data
 MAIN_PANELS = [
-    dict(num=1, label="14 NATIONS · UP TO 25%", scene="tariff", badge="OFFICIAL",
+    dict(num=1, label="14 NATIONS · UP TO 35%", scene="tariff", badge="OFFICIAL",
          source="USTR · REUTERS", region="N. AMERICA",
          headline="US PROPOSES NEW TARIFFS ON 14 PARTNERS",
-         sub="India faces 25%, 17% with a deal. Greer 26 Nov: months away."),
+         sub="Vietnam 35%, India 25% (17% deal); Greer: months away."),
     dict(num=2, label="BRENT $94.71 · 01:37 UTC · MARKET", scene="gulf", badge="CLAIM",
          source="REUTERS · ARAB NEWS", region="MIDDLE EAST",
          headline="HOUTHI, IRAN CLAIMS RATTLE GULF OIL",
@@ -409,7 +409,7 @@ ALSO = [
     ("Singapore disputes US tariff findings", "BBC", "REPORTED", "SE ASIA"),
     ("EU leaders weigh de Cos for ECB top job", "Rapporteur", "REPORTED", "EUROPE"),
     ("German consumer mood edges up to -30.2", "Reuters", "REPORTED", "EUROPE"),
-    ("Lagarde joins Euro Summit in Brussels", "Reuters", "REPORTED", "EUROPE"),
+    ("UK watchdog finds errors in motor finance payouts", "Reuters", "REPORTED", "EUROPE"),
     ("Spain's Sánchez skips EU summit to campaign", "Diario Empresas", "REPORTED", "EUROPE"),
     ("Kushner says he met Iran envoys 'a couple times'", "WION", "REPORTED", "MIDDLE EAST"),
     ("Gulf markets muted on Saudi energy strikes", "Reuters", "REPORTED", "MIDDLE EAST"),
@@ -423,15 +423,15 @@ ALSO = [
     ("China tells Japan to stop 'stirring up' sea rows", "Reuters", "REPORTED", "E. ASIA"),
     ("Israel kills 9 in Gaza; deputy minister Abu Nada dead", "Reuters", "REPORTED", "MIDDLE EAST"),
     ("FedEx jet slips off Miami runway at 01:40 UTC; no injuries", "FAA", "OFFICIAL", "N. AMERICA"),
-    ("Fed Dec hike odds hit 98% after core PCE 3.3%", "CME FedWatch", "REPORTED", "N. AMERICA"),
-    ("FAA expects busiest Thanksgiving flying in 16 years", "FAA", "OFFICIAL", "N. AMERICA"),
+    ("US officials split over Huang spy claims after Nvidia return", "Reuters", "REPORTED", "N. AMERICA"),
+    ("US chip curbs slow China's AI model race, sources say", "Reuters", "REPORTED", "N. AMERICA"),
     ("NFL Thanksgiving tripleheader: Bears-Lions, Eagles-Cowboys, Chiefs-Bills", "USA Today", "REPORTED", "N. AMERICA"),
 ]
 
 NUMBERS = [
     ("€1.58T", "EU BUDGET PLAN 2028-34"),
     ("47.6%", "UNICREDIT VOTE SHARE IN COMMERZBANK"),
-    ("13", "DEAD IN JAVA GOLD-MINE FLOOD"),
+    ("13", "JAVA MINE FLOOD TOLL (CONFIRMED)"),
     ("3.25%", "BANK OF KOREA BASE RATE"),
     ("76", "CARTAGENA COUNT PUT AT 76"),
     ("$94.71", "BRENT CRUDE AT 01:37 UTC"),
@@ -553,7 +553,7 @@ def render():
                p["label"], font=lf, fill=(255, 255, 255))
         draw_wrapped(d, p["headline"], font(19, bold=True, serif=True), x + 6, y0 + 94,
                      pw - 12, leading=21)
-        d.text((x + 6, y0 + 137), p["sub"], font=font(10), fill=INK)
+        d.text((x + 6, y0 + 135), p["sub"], font=font(10), fill=INK)
         d.text((x + 6, y0 + ph - 15), p["source"], font=font(9, bold=True), fill=BLUE)
         badge(d, x + pw - 62, y0 + ph - 16, p["badge"])
 
@@ -652,8 +652,11 @@ def render():
         if seg_w >= 10:
             cf = font(9, bold=True)
             cw = d.textlength(str(count), font=cf)
+            # dark digits on the bright-amber MIDDLE EAST segment: white
+            # there only reached 2.15:1, dark ink clears 9:1
+            num_fill = INK if name == "MIDDLE EAST" else (255, 255, 255)
             d.text((cx + (seg_w - cw) / 2, by + 4), str(count), font=cf,
-                   fill=(255, 255, 255))
+                   fill=num_fill)
         cx += seg_w
     # legend: colour swatch + name + count, 3 columns x 3 rows
     for i, (name, count, color) in enumerate(REGIONS):
@@ -668,8 +671,8 @@ def render():
     d.rectangle([8, 934, W - 8, 992], fill=(255, 235, 235), outline=RED, width=2)
     d.text((16, 938), "DATE CHECK", font=font(11, bold=True), fill=RED)
     dc1 = ("Every story here happened or was first reported on Thursday 26 November 2026 "
-           "(UTC). Developed on 26 Nov from 25 Nov news: USTR tariff plan, Cairo toll, "
-           "Cartagena count, Macy's storm, Shenzhou crew aboard.")
+           "(UTC). Developed on 26 Nov from 23–25 Nov news: USTR tariffs, Cairo toll, "
+           "Cartagena count, Java flood toll, Macy's storm, Shenzhou crew.")
     dc2 = ("EXCLUDED (24 Nov): Huawei verdict (10 of 12) · Chen Jining probe · Brazil "
            "recalls envoy · Canary 1,990 arrivals. EXCLUDED (25 Nov): FCC 1M SpaceX "
            "satellites · Ofgem +26% bills · Greece strike · NDLEA $227M seizure · OPCW "
@@ -678,8 +681,8 @@ def render():
            "Bangladesh pay rise · Luma deal voided · Earth 2°C streak · Abrego Garcia "
            "in Spain · Hera Dimorphos photo · UCL Matchday 5 · Australia–Solomon pact · "
            "Steelers cut Rodgers · Huang's Nvidia return.")
-    y = draw_wrapped(d, dc1, font(9), 16, 950, 992, fill=INK, leading=10)
-    draw_wrapped(d, dc2, font(9, bold=True), 16, y + 1, 992, fill=DARKRED, leading=10)
+    y = draw_wrapped(d, dc1, font(9), 16, 950, 992, fill=INK, leading=9)
+    draw_wrapped(d, dc2, font(9, bold=True), 16, y + 1, 992, fill=DARKRED, leading=9)
 
     # ---- footer legend: colour swatches in front of each certainty level
     legend_parts = [
